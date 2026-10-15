@@ -1,0 +1,26 @@
+<UserControl x:Class="CellQ.Desktop.Views.SettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Border Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="Appearance" Style="{StaticResource PanelTitle}" />
+                    <Label Content="_Theme" Target="{Binding ElementName=ThemePicker}" Foreground="{DynamicResource SecondaryTextBrush}" Padding="0" Margin="0,14,0,6" />
+                    <ComboBox x:Name="ThemePicker" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}" IsEnabled="{Binding CanChange}" Width="220" HorizontalAlignment="Left" AutomationProperties.Name="Theme" />
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource Panel}" Margin="0,12,0,0">
+                <StackPanel>
+                    <TextBlock Text="Log download folder" Style="{StaticResource PanelTitle}" />
+                    <TextBlock Text="New log downloads start in this folder." Style="{StaticResource SecondaryText}" Margin="0,8,0,10" />
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding DownloadDirectory, Mode=OneWay}" IsReadOnly="True" AutomationProperties.Name="Log download folder" />
+                        <Button Grid.Column="1" Content="_Choose folder…" Command="{Binding ChooseFolderCommand}" Margin="10,0,0,0" />
+                    </Grid>
+                    <Button Content="_Use default folder" Command="{Binding DefaultFolderCommand}" HorizontalAlignment="Left" Margin="0,10,0,0" ToolTip="Use the CellQ folder inside your Windows Documents folder." />
+                </StackPanel>
+            </Border>
+            <TextBlock Text="{Binding SaveStatus}" Style="{StaticResource SecondaryText}" Margin="0,12,0,0" AutomationProperties.LiveSetting="Polite" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

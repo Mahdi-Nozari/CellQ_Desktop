@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="CellQ.Desktop.Views.FirmwareView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:CellQ.Desktop.Controls">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+      <Border Style="{StaticResource Panel}" Padding="12">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <StackPanel Margin="0,0,16,0">
+            <TextBlock Text="Installed firmware" Style="{StaticResource PanelTitle}" />
+            <TextBlock Text="{Binding Connection.FirmwareLabel}" FontSize="20" FontWeight="SemiBold" Margin="0,8,0,0" />
+            <TextBlock Text="On your CellQ" Style="{StaticResource SecondaryText}" Margin="0,4,0,0" />
+          </StackPanel>
+          <StackPanel Grid.Column="1" Margin="0,0,16,0" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Connection.PortLabel}" Style="{StaticResource SecondaryText}" Margin="0,0,0,8" />
+            <controls:StatusBadge Text="{Binding Connection.StatusLabel}" Tone="{Binding Connection.Tone}" HorizontalAlignment="Left" />
+          </StackPanel>
+          <StackPanel Grid.Column="2" VerticalAlignment="Center" Visibility="{Binding ShowLatestStatus, Converter={StaticResource BooleanToVisibility}}">
+            <controls:StatusBadge Text="{Binding LatestStatusLabel}" Tone="{Binding LatestStatusTone}" HorizontalAlignment="Left" />
+            <TextBlock Text="{Binding LatestReleaseLabel}" Style="{StaticResource SecondaryText}" Margin="0,6,0,0" />
+          </StackPanel>
+        </Grid>
+      </Border>
+      <Grid Margin="0,12,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="12" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border x:Name="ProgressPanel" Style="{StaticResource Panel}" Padding="12">
+          <StackPanel>
+            <Grid>
+              <TextBlock Text="Update progress" Style="{StaticResource PanelTitle}" />
+              <controls:StatusBadge Text="{Binding StatusLabel}" Tone="{Binding Tone}" HorizontalAlignment="Right" />
+            </Grid>
+            <TextBlock Text="Download → Check → Install → Check device" Style="{StaticResource SecondaryText}" Margin="0,12,0,10" />
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="13" />
+            <ProgressBar Style="{x:Null}" Height="6" Foreground="{StaticResource NavigationBrush}" Background="{DynamicResource CanvasBrush}" Value="{Binding Percentage, Mode=OneWay}" IsIndeterminate="{Binding IsIndeterminate}" Visibility="{Binding ShowProgress, Converter={StaticResource BooleanToVisibility}}" Margin="0,12,0,6" />
+            <TextBlock Text="{Binding ProgressLabel}" Style="{StaticResource SecondaryText}" />
+            <WrapPanel Margin="0,10,0,0" Visibility="{Binding ShowActions, Converter={StaticResource BooleanToVisibility}}">
+              <Button Content="Cancel" Command="{Binding CancelCommand}" Visibility="{Binding ShowProgress, Converter={StaticResource BooleanToVisibility}}" />
+              <Button Content="Return to normal" Command="{Binding ReturnNormalCommand}" Visibility="{Binding ShowReturnNormal, Converter={StaticResource BooleanToVisibility}}" Margin="8,0,0,0" />
+            </WrapPanel>
+            <Expander Header="Technical details" FontSize="12" Margin="0,12,0,0">
+              <StackPanel Margin="0,8,0,0">
+                <TextBlock Text="{Binding VerificationDetails}" Style="{StaticResource SecondaryText}" />
+                <TextBox Text="{Binding Details, Mode=OneWay}" IsReadOnly="True" FontFamily="Consolas" FontSize="11" TextWrapping="Wrap" MaxHeight="180" VerticalScrollBarVisibility="Auto" Margin="0,8,0,0" />
+              </StackPanel>
+            </Expander>
+          </StackPanel>
+        </Border>
+        <Border x:Name="UpdateFilePanel" Grid.Column="2" Style="{StaticResource Panel}" Padding="12">
+          <StackPanel>
+            <Grid>
+              <TextBlock Text="Update file" Style="{StaticResource PanelTitle}" />
+              <controls:StatusBadge Text="{Binding ReleaseStatus}" HorizontalAlignment="Right" />
+            </Grid>
+            <TextBlock Text="Choose a release to install." Style="{StaticResource SecondaryText}" Margin="0,12,0,6" />
+            <ComboBox ItemsSource="{Binding Releases}" SelectedItem="{Binding SelectedRelease}" DisplayMemberPath="Version" IsEnabled="{Binding CanChoose}" AutomationProperties.Name="Update version" />
+            <TextBlock Text="{Binding AssetLabel}" Margin="0,12,0,10" TextWrapping="Wrap" FontSize="14" FontWeight="SemiBold" />
+            <WrapPanel>
+              <Button Content="Download update" Command="{Binding DownloadCommand}" />
+              <controls:StatusBadge Text="{Binding PackageLabel}" Tone="{Binding PackageTone}" VerticalAlignment="Center" Margin="10,0,0,0" />
+            </WrapPanel>
+            <Expander Header="Release notes" FontSize="12" Margin="0,12,0,0">
+              <StackPanel Margin="0,8,0,0">
+                <TextBlock Text="{Binding PublishedLabel}" Style="{StaticResource SecondaryText}" Margin="0,0,0,6" />
+                <TextBox Text="{Binding ReleaseNotes, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" MaxHeight="140" VerticalScrollBarVisibility="Auto" />
+                <TextBox Text="{Binding ReleaseSource, Mode=OneWay}" IsReadOnly="True" FontSize="11" Margin="0,6,0,0" />
+              </StackPanel>
+            </Expander>
+            <TextBlock Text="{Binding InstallHint}" Style="{StaticResource SecondaryText}" Margin="0,14,0,10" />
+            <Button Content="Update firmware" Command="{Binding InstallCommand}" HorizontalAlignment="Left" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
+

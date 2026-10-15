@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- CQ monogram: black C, CellQ cyan Q, and the existing header's light gray. -->
+  <rect x="8" y="8" width="240" height="240" rx="40" fill="#E6E6E6" />
+  <path d="M 112,87 H 63 C 42,87 30,103 30,125 C 30,147 42,163 63,163 H 112" fill="none" stroke="#000000" stroke-width="13" />
+  <path d="M 155,87 H 211 C 219,87 224,92 224,100 V 150 C 224,158 219,163 211,163 H 155 C 147,163 142,158 142,150 V 100 C 142,92 147,87 155,87 Z M 202,143 L 229,170" fill="none" stroke="#00ACC0" stroke-width="13" />
+</svg>

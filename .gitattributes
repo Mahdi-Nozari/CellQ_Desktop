@@ -1,0 +1,22 @@
+* text=auto
+
+*.cs text eol=lf
+*.xaml text eol=lf
+*.csproj text eol=lf
+*.props text eol=lf
+*.pubxml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.svg text eol=lf
+*.sln text eol=crlf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.ico binary
+*.exe binary
+*.zip binary
+
+# Preserve pinned vendor hashes and the original regression fixture bytes.
+src/CellQ.Desktop/Tools/avrdude/8.3/** -text
+tests/Fixtures/*.csv -text

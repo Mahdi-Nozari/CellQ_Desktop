@@ -1,0 +1,80 @@
+<UserControl x:Class="CellQ.Desktop.Views.HelpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style x:Key="HelpStep" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="LineHeight" Value="20" />
+            <Setter Property="Margin" Value="0,8,0,0" />
+        </Style>
+        <Style x:Key="HelpNote" TargetType="TextBlock" BasedOn="{StaticResource SecondaryText}">
+            <Setter Property="LineHeight" Value="18" />
+            <Setter Property="Margin" Value="0,12,0,0" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+            <Border Style="{StaticResource Panel}">
+                <StackPanel>
+                    <TextBlock Text="Start here: connect your CellQ" Style="{StaticResource PanelTitle}" />
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="1. " FontWeight="SemiBold" />Power on CellQ and connect it to your computer with a USB cable.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="2. " FontWeight="SemiBold" />Open <Run Text="Device" FontWeight="SemiBold" />. Choose the connection for CellQ from the list, then select <Run Text="Connect" FontWeight="SemiBold" />. Windows names these connections COM1, COM2, and so on.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="3. " FontWeight="SemiBold" />Wait for <Run Text="Connected" FontWeight="SemiBold" />. Device shows your CellQ's status and installed firmware version. Use <Run Text="Refresh status" FontWeight="SemiBold" /> to check them again.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpNote}">Run tests from CellQ's own screen. Before accessing logs or installing an update, finish any running or paused test and close valves opened in Manual mode. CellQ temporarily shows Maintenance mode during these tasks and returns to its normal screen when they finish successfully.</TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="12" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Panel}">
+                    <StackPanel>
+                        <TextBlock Text="Save your data logs" Style="{StaticResource PanelTitle}" />
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="1. " FontWeight="SemiBold" />Open <Run Text="Data Logs" FontWeight="SemiBold" /> and select <Run Text="Browse device logs" FontWeight="SemiBold" /> to see the files on CellQ.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="2. " FontWeight="SemiBold" />Select a log, choose <Run Text="Download / Resume" FontWeight="SemiBold" />, then choose a save location and filename.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="3. " FontWeight="SemiBold" />Wait for <Run Text="Complete" FontWeight="SemiBold" /> and <Run Text="Verified copy" FontWeight="SemiBold" />. Your saved file has been checked and is ready to use.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="4. " FontWeight="SemiBold" />Choose <Run Text="View graph" FontWeight="SemiBold" /> to compare channel pressures. Tick channels to show or hide them, adjust <Run Text="Time span" FontWeight="SemiBold" /> to zoom, and drag the graph to move through time.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}">To graph a log already on your computer, choose <Run Text="Open log file…" FontWeight="SemiBold" /> in Data Logs. No device connection is needed.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpNote}">Removing a log is optional. Choose <Run Text="Delete from device…" FontWeight="SemiBold" /> only after saving a verified copy, then confirm. The copy on your computer is kept. To check a copy saved during an earlier session, select the log and choose <Run Text="Use saved copy…" FontWeight="SemiBold" />.</TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource Panel}">
+                    <StackPanel>
+                        <TextBlock Text="Keep CellQ up to date" Style="{StaticResource PanelTitle}" />
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="1. " FontWeight="SemiBold" />Open <Run Text="Firmware Update" FontWeight="SemiBold" /> and choose <Run Text="Check releases" FontWeight="SemiBold" />. Internet access is needed. If the top panel says <Run Text="Latest version installed" FontWeight="SemiBold" />, you're up to date.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="2. " FontWeight="SemiBold" />If an update is available, choose the latest version under <Run Text="Update file" FontWeight="SemiBold" />. Read its <Run Text="Release notes" FontWeight="SemiBold" />, then choose <Run Text="Download update" FontWeight="SemiBold" />.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="3. " FontWeight="SemiBold" />When the file says <Run Text="Checked" FontWeight="SemiBold" />, select <Run Text="Update firmware" FontWeight="SemiBold" /> and confirm the update.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpStep}"><Run Text="4. " FontWeight="SemiBold" />Keep USB and power connected. Wait for <Run Text="Complete" FontWeight="SemiBold" /> while the app installs the update, reconnects, and checks the new version.</TextBlock>
+                        <TextBlock Style="{StaticResource HelpNote}"><Run Text="Installed firmware" FontWeight="SemiBold" /> is the version on your CellQ. <Run Text="Update file" FontWeight="SemiBold" /> is the version you've chosen to install. Downloading it alone does not change your device.</TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource Panel}" Margin="0,12,0,0">
+                <StackPanel>
+                    <TextBlock Text="If something needs attention" Style="{StaticResource PanelTitle}" />
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="CellQ isn't listed or won't connect: " FontWeight="SemiBold" />Check its power and USB cable, then select <Run Text="Find devices" FontWeight="SemiBold" /> on Device. The connection that appears when you reconnect CellQ is the one to choose. Close any other app using that connection and try again.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="A log download was interrupted: " FontWeight="SemiBold" />Reconnect, browse the logs again, select the same log, and choose <Run Text="Download / Resume" FontWeight="SemiBold" />. Choose the same folder and filename to continue. Wait for the copy to be verified before using it.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="CellQ still shows Maintenance mode: " FontWeight="SemiBold" />Once any active operation has finished, reconnect if needed and choose <Run Text="Return to normal" FontWeight="SemiBold" /> in Data Logs or Firmware Update.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpStep}"><Run Text="No logs or updates appear: " FontWeight="SemiBold" />An empty log list means no saved logs were found on CellQ. An empty update list means no compatible published update is available. If the app reports a connection or internet problem, follow that message and try again.</TextBlock>
+                    <TextBlock Style="{StaticResource HelpNote}">For a failed update or a problem that persists, keep the on-screen message and the version shown on Device. Open <Run Text="Diagnostics" FontWeight="SemiBold" /> to review connection activity. If support asks, enable <Run Text="Technical details" FontWeight="SemiBold" /> and select a message to copy its full text.</TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Panel}" Margin="0,12,0,0">
+                <StackPanel>
+                    <TextBlock Text="Make the app comfortable for you" Style="{StaticResource PanelTitle}" />
+                    <TextBlock Style="{StaticResource HelpStep}">Open <Run Text="Settings" FontWeight="SemiBold" /> to choose <Run Text="Light" FontWeight="SemiBold" /> or <Run Text="Dark" FontWeight="SemiBold" /> and set your log download folder. The default is <Run Text="CellQ" FontWeight="SemiBold" /> inside your Windows <Run Text="Documents" FontWeight="SemiBold" /> folder. <Run Text="Choose folder…" FontWeight="SemiBold" /> changes it; <Run Text="Use default folder" FontWeight="SemiBold" /> restores it. Changes save automatically.</TextBlock>
+                    <Expander Header="Keyboard shortcuts" Margin="0,12,0,0" Foreground="{DynamicResource TextBrush}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource HelpStep}"><Run Text="Tab / Shift+Tab: " FontWeight="SemiBold" />move between controls. <Run Text="Enter / Space: " FontWeight="SemiBold" />activate the focused button.</TextBlock>
+                            <TextBlock Style="{StaticResource HelpStep}"><Run Text="Alt+D: " FontWeight="SemiBold" />Device · <Run Text="Alt+L: " FontWeight="SemiBold" />Data Logs · <Run Text="Alt+F: " FontWeight="SemiBold" />Firmware Update</TextBlock>
+                            <TextBlock Style="{StaticResource HelpStep}"><Run Text="Alt+G: " FontWeight="SemiBold" />Diagnostics · <Run Text="Alt+S: " FontWeight="SemiBold" />Settings · <Run Text="Alt+H: " FontWeight="SemiBold" />Help</TextBlock>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

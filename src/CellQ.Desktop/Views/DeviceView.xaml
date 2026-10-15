@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="CellQ.Desktop.Views.DeviceView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:CellQ.Desktop.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel>
+        <Border Style="{StaticResource Panel}"><StackPanel>
+            <Grid><TextBlock Text="USB connection" Style="{StaticResource PanelTitle}" VerticalAlignment="Center" /><controls:StatusBadge Text="{Binding Connection.StatusLabel}" Tone="{Binding Connection.Tone}" HorizontalAlignment="Right" /></Grid>
+            <TextBlock Text="{Binding Connection.ConnectionDescription}" Style="{StaticResource SecondaryText}" FontSize="13" Margin="0,14,0,16" />
+            <StackPanel Orientation="Horizontal">
+                <ComboBox ItemsSource="{Binding Connection.Ports}" DisplayMemberPath="Label" SelectedValuePath="PortName" SelectedValue="{Binding Connection.SelectedPort}" IsEnabled="{Binding Connection.CanChoosePort}" Width="160" AutomationProperties.Name="USB connection" ToolTip="Choose the USB connection for your CellQ. Only matching connections are shown." />
+                <Button Content="Find devices" Command="{Binding Connection.RefreshPortsCommand}" Margin="8,0,0,0" />
+                <Button Content="Connect" Command="{Binding Connection.ConnectCommand}" Visibility="{Binding Connection.ShowConnect, Converter={StaticResource BooleanToVisibility}}" Margin="8,0,0,0" />
+                <Button Content="{Binding Connection.DisconnectLabel}" Command="{Binding Connection.DisconnectCommand}" Visibility="{Binding Connection.ShowDisconnect, Converter={StaticResource BooleanToVisibility}}" Margin="8,0,0,0" />
+            </StackPanel>
+            <Border Background="{StaticResource ErrorSurfaceBrush}" Padding="12" Margin="0,14,0,0" Visibility="{Binding Connection.HasError, Converter={StaticResource BooleanToVisibility}}"><TextBlock Text="{Binding Connection.ErrorHint}" TextWrapping="Wrap" Foreground="{StaticResource ErrorBrush}" FontSize="13" /></Border>
+        </StackPanel></Border>
+        <Border Style="{StaticResource Panel}" Margin="0,16,0,0"><StackPanel>
+            <TextBlock Text="Your device" Style="{StaticResource PanelTitle}" />
+            <Grid Margin="0,16,0,10"><Grid.ColumnDefinitions><ColumnDefinition Width="180" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="32" /><RowDefinition Height="32" /><RowDefinition Height="32" /></Grid.RowDefinitions>
+                <TextBlock Text="Device status" Style="{StaticResource SecondaryText}" /><TextBlock Grid.Column="1" Text="{Binding Connection.ModeLabel}" FontWeight="SemiBold" />
+                <TextBlock Grid.Row="1" Text="Firmware version" Style="{StaticResource SecondaryText}" /><TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Connection.FirmwareLabel}" />
+                <TextBlock Grid.Row="2" Text="Last checked" Style="{StaticResource SecondaryText}" /><TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Connection.LastHello}" />
+            </Grid>
+            <TextBlock Text="{Binding Connection.ModeDescription}" Style="{StaticResource SecondaryText}" FontSize="13" />
+            <TextBlock Text="Refresh status updates this information. It does not start or stop a test." Style="{StaticResource SecondaryText}" Margin="0,14,0,0" />
+        </StackPanel></Border>
+        <Border Style="{StaticResource Panel}" Margin="0,16,0,0" Padding="16,12"><Expander Header="Technical details" IsExpanded="False" AutomationProperties.Name="Technical connection details"><StackPanel Margin="0,14,0,0">
+            <TextBlock Text="250000 baud · 8-N-1 · DTR off · RTS off" FontFamily="Consolas" FontSize="13" />
+            <TextBlock Text="HELLO asks for the firmware version and current mode. It does not change the device's screen or outputs." Style="{StaticResource SecondaryText}" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Connection.RequestLabel}" Style="{StaticResource SecondaryText}" Margin="0,10,0,0" />
+            <TextBlock Text="{Binding Connection.ErrorMessage}" Foreground="{StaticResource ErrorBrush}" TextWrapping="Wrap" Margin="0,10,0,0" Visibility="{Binding Connection.HasError, Converter={StaticResource BooleanToVisibility}}" />
+        </StackPanel></Expander></Border>
+    </StackPanel></ScrollViewer>
+</UserControl>

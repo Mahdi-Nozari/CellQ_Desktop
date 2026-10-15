@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>CellQ.Desktop</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/CellQ.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo"><_Parameter1>CellQ.UiChecks</_Parameter1></AssemblyAttribute>
+    <ProjectReference Include="../CellQ.Protocol/CellQ.Protocol.csproj" />
+    <PackageReference Include="System.IO.Ports" Version="10.0.0" />
+    <Resource Include="../../docs/references/mainPage.png" Link="Assets/DisplayReference.png" />
+    <Resource Include="Assets/CellQ.ico" />
+    <EmbeddedResource Include="Tools/avrdude/8.3/*" LogicalName="CellQ.Uploader.%(Filename)%(Extension)" />
+    <!-- Keep the existing core bundle tests able to inspect the unchanged originals. -->
+    <Content Include="Tools/avrdude/8.3/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+.tools/
+.preview/
+**/bin/
+**/obj/
+.vs/
+artifacts/
+*.user
+dist/

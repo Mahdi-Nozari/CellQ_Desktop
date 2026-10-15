@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="CellQ.Desktop.Views.DiagnosticsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:CellQ.Desktop.Controls" xmlns:infrastructure="clr-namespace:CellQ.Desktop.Infrastructure">
+    <UserControl.Resources><infrastructure:ActivityTextConverter x:Key="ActivityText" /></UserControl.Resources>
+    <Grid><Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+        <Border Style="{StaticResource Panel}" Margin="0,0,0,16"><StackPanel>
+            <Grid><TextBlock Text="Connection check" Style="{StaticResource PanelTitle}" VerticalAlignment="Center" /><controls:StatusBadge Text="{Binding Connection.StatusLabel}" Tone="{Binding Connection.Tone}" HorizontalAlignment="Right" /></Grid>
+            <TextBlock Text="{Binding Connection.RequestLabel}" Style="{StaticResource SecondaryText}" Margin="0,12,0,6" />
+            <TextBlock Text="If you need help, view the technical details below and share the messages with support." Style="{StaticResource SecondaryText}" />
+            <TextBlock Text="{Binding Connection.ErrorHint}" Foreground="{StaticResource ErrorBrush}" TextWrapping="Wrap" FontSize="12" Margin="0,8,0,0" Visibility="{Binding Connection.HasError, Converter={StaticResource BooleanToVisibility}}" />
+        </StackPanel></Border>
+        <Border Grid.Row="1" Style="{StaticResource Panel}" Padding="0"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+            <Grid Margin="16,14"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="200" /></Grid.ColumnDefinitions>
+                <TextBlock Text="Activity" Style="{StaticResource PanelTitle}" VerticalAlignment="Center" />
+                <CheckBox Grid.Column="1" Content="Pause messages" IsChecked="{Binding Connection.Paused}" Margin="0,0,16,0" />
+                <TextBox Grid.Column="2" Style="{StaticResource SearchBox}" Tag="Search messages" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="Search messages" />
+            </Grid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="16,0,16,14">
+                <CheckBox Content="Technical details" IsChecked="{Binding ShowTechnicalDetails}" AutomationProperties.Name="Show technical messages" />
+                <CheckBox Content="Device messages only" IsChecked="{Binding DebugOnly}" Margin="18,0,0,0" Visibility="{Binding ShowTechnicalDetails, Converter={StaticResource BooleanToVisibility}}" />
+            </StackPanel>
+            <Grid Grid.Row="2">
+                <DataGrid ItemsSource="{Binding FilteredMessages}" RowHeight="36" AutomationProperties.Name="Connection activity"><DataGrid.Style><Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}"><Style.Triggers><DataTrigger Binding="{Binding ShowTechnicalDetails}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></DataGrid.Style><DataGrid.Columns>
+                    <DataGridTextColumn Header="Time" Binding="{Binding LocalReceivedAt, StringFormat={}{0:HH:mm:ss}}" Width="100" />
+                    <DataGridTextColumn Header="Message" Binding="{Binding Converter={StaticResource ActivityText}}" Width="*" />
+                </DataGrid.Columns></DataGrid>
+                <DataGrid ItemsSource="{Binding FilteredMessages}" SelectedItem="{Binding SelectedMessage}" RowHeight="36" Visibility="{Binding ShowTechnicalDetails, Converter={StaticResource BooleanToVisibility}}" AutomationProperties.Name="Technical device messages"><DataGrid.Columns>
+                    <DataGridTextColumn Header="Time" Binding="{Binding LocalReceivedAt, StringFormat={}{0:HH:mm:ss.fff}}" Width="112" ElementStyle="{StaticResource MonoCell}" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding Kind}" Width="115" />
+                    <DataGridTextColumn Header="Original message" Binding="{Binding Text}" Width="*" MinWidth="380" ElementStyle="{StaticResource MonoCell}" />
+                </DataGrid.Columns></DataGrid>
+                <TextBlock Text="No messages to show." HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource SecondaryTextBrush}" IsHitTestVisible="False"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding FilteredMessages.IsEmpty}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+            </Grid>
+            <StackPanel Grid.Row="3" Margin="16,12">
+                <StackPanel Visibility="{Binding ShowTechnicalDetails, Converter={StaticResource BooleanToVisibility}}">
+                    <TextBox Text="{Binding SelectedMessage.Text, Mode=OneWay, TargetNullValue=Select a message to view or copy its full text., FallbackValue=Select a message to view or copy its full text.}" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="62" FontFamily="Consolas" FontSize="12" Margin="0,0,0,10" AutomationProperties.Name="Full received message" />
+                    <TextBlock Text="{Binding Connection.BufferLabel}" Style="{StaticResource SecondaryText}" FontSize="11" />
+                    <TextBlock Text="250000 baud · 8-N-1 · DTR off · RTS off" FontFamily="Consolas" FontSize="11" Margin="0,4,0,0" />
+                    <TextBlock Text="{Binding Connection.ErrorMessage}" Foreground="{StaticResource ErrorBrush}" TextWrapping="Wrap" FontSize="12" Margin="0,8,0,0" Visibility="{Binding Connection.HasError, Converter={StaticResource BooleanToVisibility}}" />
+                </StackPanel>
+                <TextBlock Text="Pausing or clearing messages only changes this list." Style="{StaticResource SecondaryText}" FontSize="11" Margin="0,6,0,0" />
+            </StackPanel>
+        </Grid></Border>
+    </Grid>
+</UserControl>

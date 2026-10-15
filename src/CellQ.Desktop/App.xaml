@@ -1,0 +1,10 @@
+<Application x:Class="CellQ.Desktop.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:CellQ.Desktop.ViewModels" xmlns:views="clr-namespace:CellQ.Desktop.Views">
+    <Application.Resources><ResourceDictionary><ResourceDictionary.MergedDictionaries><ResourceDictionary Source="Themes/CellQTheme.xaml" /></ResourceDictionary.MergedDictionaries>
+        <DataTemplate DataType="{x:Type vm:DataLogsViewModel}"><views:DataLogsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DeviceViewModel}"><views:DeviceView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:FirmwareViewModel}"><views:FirmwareView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DiagnosticsViewModel}"><views:DiagnosticsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}"><views:SettingsView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HelpViewModel}"><views:HelpView /></DataTemplate>
+    </ResourceDictionary></Application.Resources>
+</Application>
