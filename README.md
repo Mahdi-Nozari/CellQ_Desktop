@@ -1,5 +1,7 @@
 # CellQ Desktop
 
+Download the portable Windows app from [CellQ Desktop v1.0.0](https://github.com/Mahdi-Nozari/CellQ_Desktop/releases/tag/v1.0.0). Under **Assets**, choose **CellQ.exe**, save it to your computer and double-click it. No installer or separate .NET installation is needed. **CellQ.sha256** is an optional integrity-check file.
+
 Final cleanup: sample graph/demo data removed from the app; local and downloaded log graphing retained. [Release checks and cleanup inventory](docs/FINALIZATION.md).
 
 C# / WPF on .NET 10, using compact Design A: 1120 x 760 initially, minimum 1040 x 700. Device, Data Logs, Firmware Update and Diagnostics share one connection service. Firmware installation is available after a published update is verified, a CellQ is connected, and the user approves installation. No physical device was flashed by the agent; the user has reported a successful download and flash.
